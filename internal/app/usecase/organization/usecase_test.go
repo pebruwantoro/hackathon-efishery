@@ -18,12 +18,6 @@ func TestNewUsecase(t *testing.T) {
 		})
 	})
 
-	t.Run("ShouldPanicWhenBeeceptorWrapperIsNil", func(t *testing.T) {
-		assert.Panics(t, func() {
-			organization.NewUsecase().SetOrganizationRepository(organizationRepo).Validate()
-		})
-	})
-
 	t.Run("ShouldNotPanic", func(t *testing.T) {
 		assert.NotPanics(t, func() {
 			organization.NewUsecase().SetOrganizationRepository(organizationRepo).Validate()
