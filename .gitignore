@@ -1,0 +1,7 @@
+/tmp
+.vscode/
+config.json
+cover.txt
+cover.html
+coverage.cov
+.idea
