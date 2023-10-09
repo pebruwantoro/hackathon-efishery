@@ -23,7 +23,7 @@ func mig_20231009102314_create_users_table_up(tx *gorm.DB) error {
 		name VARCHAR(50) NOT NULL,
 		username VARCHAR(50) NOT NULL,
 		email VARCHAR(50) NOT NULL,
-		access_role int8 NOT NULL,
+		access_role VARCHAR(50) NOT NULL,
 		password TEXT NOT NULL,
 		created_at timestamptz NOT NULL,
 		created_by VARCHAR(255) NOT NULL,

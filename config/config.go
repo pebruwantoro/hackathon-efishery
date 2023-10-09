@@ -21,6 +21,7 @@ type AppConfig struct {
 	Version  string `mapstructure:"version"`
 	HttpPort int    `mapstructure:"httpPort"`
 	GrpcPort int    `mapstructure:"grpcPort"`
+	Salt     string `mapstructure:"salt"`
 }
 
 type LoggerConfig struct {

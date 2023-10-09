@@ -5,18 +5,18 @@ import (
 
 	"github.com/pebruwantoro/hackathon-efishery/internal/app/container"
 	"github.com/pebruwantoro/hackathon-efishery/internal/app/handler/rest/health_check"
-	"github.com/pebruwantoro/hackathon-efishery/internal/app/handler/rest/organization"
+	"github.com/pebruwantoro/hackathon-efishery/internal/app/handler/rest/user"
 )
 
 func SetupRouter(server *echo.Echo, container *container.Container) {
 	// inject handler with usecase via container
 	healthCheckHandler := health_check.NewHandler().Validate()
-	organizationHandler := organization.NewHandler().SetOrganizationUsecase(container.OrganizationUsecase).Validate()
+	userHandler := user.NewHandler().SetUserUsecase(container.UserUsecase).Validate()
 
 	server.GET("/", healthCheckHandler.Check)
 
-	organization := server.Group("/v1/organizations")
+	organization := server.Group("/v1/users")
 	{
-		organization.POST("", organizationHandler.Create)
+		organization.POST("", userHandler.Create)
 	}
 }
