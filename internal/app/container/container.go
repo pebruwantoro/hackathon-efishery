@@ -8,6 +8,7 @@ import (
 	"github.com/pebruwantoro/hackathon-efishery/config"
 	"github.com/pebruwantoro/hackathon-efishery/internal/app/driver"
 	"github.com/pebruwantoro/hackathon-efishery/internal/app/repository"
+	"github.com/pebruwantoro/hackathon-efishery/internal/app/usecase/task"
 	"github.com/pebruwantoro/hackathon-efishery/internal/app/usecase/user"
 	"github.com/pebruwantoro/hackathon-efishery/internal/pkg/logger"
 )
@@ -16,6 +17,7 @@ type Container struct {
 	Config      config.Config
 	Tracer      *apm.Tracer
 	UserUsecase user.UserUsecase
+	TaskUsecase task.TaskUsecase
 }
 
 func Setup() *Container {
@@ -37,6 +39,7 @@ func Setup() *Container {
 	userRepo := repository.NewUserRepository(db)
 	roleRepo := repository.NewRoleRepository(db)
 	userPointRepo := repository.NewUserPointRepository(db)
+	taskRepo := repository.NewTaskRepository(db)
 
 	// Setup Usecase
 	userUsecase := user.NewUsecase().SetUserRepository(userRepo).
@@ -44,9 +47,14 @@ func Setup() *Container {
 		SetUserPointRepository(userPointRepo).
 		Validate()
 
+	taskUsecase := task.NewUsecase().
+		SetTaskRepository(taskRepo).
+		Validate()
+
 	return &Container{
 		Config:      cfg,
 		Tracer:      tracer,
 		UserUsecase: userUsecase,
+		TaskUsecase: taskUsecase,
 	}
 }
