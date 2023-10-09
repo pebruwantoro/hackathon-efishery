@@ -2,15 +2,21 @@ package rest
 
 import (
 	"bytes"
+	"fmt"
 	"io"
+	"strings"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"go.elastic.co/apm/module/apmechov4/v2"
 
 	"github.com/pebruwantoro/hackathon-efishery/internal/app/container"
+	"github.com/pebruwantoro/hackathon-efishery/internal/pkg"
+	"github.com/pebruwantoro/hackathon-efishery/internal/pkg/helpers"
 	"github.com/pebruwantoro/hackathon-efishery/internal/pkg/logger"
+	"github.com/pebruwantoro/hackathon-efishery/internal/pkg/response"
 	pkgValidator "github.com/pebruwantoro/hackathon-efishery/internal/pkg/validator"
 )
 
@@ -106,4 +112,228 @@ func SkipLoggerMiddleware(path string) bool {
 	}
 
 	return false
+}
+
+func AuthMiddleware(container *container.Container) echo.MiddlewareFunc {
+	return func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			var (
+				token    string
+				jwtToken *jwt.Token
+				err      error
+			)
+
+			cfg := container.Config
+			ctx := c.Request().Context()
+			reqPath := c.Request().URL.Path
+
+			if SkipLoggerMiddleware(reqPath) {
+				return next(c)
+			}
+
+			headerAuth := c.Request().Header.Get(pkg.HEADER_AUTHORIZATION)
+			if headerAuth != "" {
+				splitHeader := strings.Split(headerAuth, " ")
+				if len(splitHeader) != 2 {
+					logger.Log.Error(ctx, "invalid header authorization")
+					return c.JSON(401, response.DefaultResponse{
+						Success: false,
+						Message: "Unauthorized",
+					})
+				}
+
+				token = splitHeader[1]
+			}
+			claimToken := cfg.Token.Secret
+
+			jwtToken, err = jwt.ParseWithClaims(token, &helpers.UserClaims{}, func(token *jwt.Token) (interface{}, error) {
+				if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+					return nil, fmt.Errorf("unexpected signing method %v", token.Header["alg"])
+				}
+
+				return []byte(claimToken), nil
+			})
+			if err != nil {
+				logger.Log.Error(ctx, fmt.Sprintf("error parseWithClaim : %s", err.Error()))
+				return c.JSON(401, response.DefaultResponse{
+					Success: false,
+					Message: "Unauthorized",
+				})
+			}
+
+			if !jwtToken.Valid {
+				logger.Log.Error(ctx, "invalid jwt token")
+				return c.JSON(401, response.DefaultResponse{
+					Success: false,
+					Message: "Unauthorized",
+				})
+			}
+			claims, ok := jwtToken.Claims.(*helpers.UserClaims)
+			if !ok {
+				return c.JSON(401, response.DefaultResponse{
+					Success: false,
+					Message: "Unauthorized",
+				})
+			}
+
+			c.Request().Header.Add(pkg.HEADER_USER_EMAIL, claims.Email)
+			c.Request().Header.Add(pkg.Header_USER_UUID, claims.UUID)
+
+			return next(c)
+		}
+	}
+}
+
+func AuthAdminMiddleware(container *container.Container) echo.MiddlewareFunc {
+	return func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			var (
+				token    string
+				jwtToken *jwt.Token
+				err      error
+			)
+
+			cfg := container.Config
+			ctx := c.Request().Context()
+			reqPath := c.Request().URL.Path
+
+			if SkipLoggerMiddleware(reqPath) {
+				return next(c)
+			}
+
+			headerAuth := c.Request().Header.Get(pkg.HEADER_AUTHORIZATION)
+			if headerAuth != "" {
+				splitHeader := strings.Split(headerAuth, " ")
+				if len(splitHeader) != 2 {
+					logger.Log.Error(ctx, "invalid header authorization")
+					return c.JSON(401, response.DefaultResponse{
+						Success: false,
+						Message: "Unauthorized",
+					})
+				}
+
+				token = splitHeader[1]
+			}
+			claimToken := cfg.Token.Secret
+
+			jwtToken, err = jwt.ParseWithClaims(token, &helpers.UserClaims{}, func(token *jwt.Token) (interface{}, error) {
+				if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+					return nil, fmt.Errorf("unexpected signing method %v", token.Header["alg"])
+				}
+
+				return []byte(claimToken), nil
+			})
+			if err != nil {
+				logger.Log.Error(ctx, fmt.Sprintf("error parseWithClaim : %s", err.Error()))
+				return c.JSON(401, response.DefaultResponse{
+					Success: false,
+					Message: "Unauthorized",
+				})
+			}
+
+			if !jwtToken.Valid {
+				logger.Log.Error(ctx, "invalid jwt token")
+				return c.JSON(401, response.DefaultResponse{
+					Success: false,
+					Message: "Unauthorized",
+				})
+			}
+			claims, ok := jwtToken.Claims.(*helpers.UserClaims)
+			if !ok {
+				return c.JSON(401, response.DefaultResponse{
+					Success: false,
+					Message: "Unauthorized",
+				})
+			}
+
+			if claims.Role != "ADMIN" {
+				return c.JSON(401, response.DefaultResponse{
+					Success: false,
+					Message: "Unauthorized",
+				})
+			}
+
+			c.Request().Header.Add(pkg.HEADER_USER_EMAIL, claims.Email)
+			c.Request().Header.Add(pkg.Header_USER_UUID, claims.UUID)
+
+			return next(c)
+		}
+	}
+}
+
+func AuthManagerialMiddleware(container *container.Container) echo.MiddlewareFunc {
+	return func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			var (
+				token    string
+				jwtToken *jwt.Token
+				err      error
+			)
+
+			cfg := container.Config
+			ctx := c.Request().Context()
+			reqPath := c.Request().URL.Path
+
+			if SkipLoggerMiddleware(reqPath) {
+				return next(c)
+			}
+
+			headerAuth := c.Request().Header.Get(pkg.HEADER_AUTHORIZATION)
+			if headerAuth != "" {
+				splitHeader := strings.Split(headerAuth, " ")
+				if len(splitHeader) != 2 {
+					logger.Log.Error(ctx, "invalid header authorization")
+					return c.JSON(401, response.DefaultResponse{
+						Success: false,
+						Message: "Unauthorized",
+					})
+				}
+
+				token = splitHeader[1]
+			}
+			claimToken := cfg.Token.Secret
+
+			jwtToken, err = jwt.ParseWithClaims(token, &helpers.UserClaims{}, func(token *jwt.Token) (interface{}, error) {
+				if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+					return nil, fmt.Errorf("unexpected signing method %v", token.Header["alg"])
+				}
+
+				return []byte(claimToken), nil
+			})
+			if err != nil {
+				logger.Log.Error(ctx, fmt.Sprintf("error parseWithClaim : %s", err.Error()))
+				return c.JSON(401, response.DefaultResponse{
+					Success: false,
+					Message: "Unauthorized",
+				})
+			}
+
+			if !jwtToken.Valid {
+				logger.Log.Error(ctx, "invalid jwt token")
+				return c.JSON(401, response.DefaultResponse{
+					Success: false,
+					Message: "Unauthorized",
+				})
+			}
+			claims, ok := jwtToken.Claims.(*helpers.UserClaims)
+			if !ok {
+				return c.JSON(401, response.DefaultResponse{
+					Success: false,
+					Message: "Unauthorized",
+				})
+			}
+
+			if claims.Role == "STAFF" {
+				return c.JSON(401, response.DefaultResponse{
+					Success: false,
+					Message: "Unauthorized",
+				})
+			}
+
+			c.Request().Header.Add(pkg.HEADER_USER_EMAIL, claims.Email)
+			c.Request().Header.Add(pkg.Header_USER_UUID, claims.UUID)
+
+			return next(c)
+		}
+	}
 }
