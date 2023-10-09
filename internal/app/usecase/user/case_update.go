@@ -7,7 +7,7 @@ import (
 )
 
 func (u *usecase) Update(ctx context.Context, req UpdateUserRequest) (err error) {
-	user, err := u.userRepository.GetByUUID(ctx, req.UUID)
+	user, err := u.userRepository.GetByID(ctx, req.ID)
 	if err != nil {
 		return
 	}

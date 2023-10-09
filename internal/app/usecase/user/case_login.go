@@ -24,6 +24,12 @@ func (u *usecase) Login(ctx context.Context, req LoginRequest) (LoginResponse, e
 		user = dataUser
 	}
 
+	// CHECK PASSWORD
+	err := helpers.CheckPassword(req.Password, user.Password)
+	if err != nil {
+		return LoginResponse{}, errors.New("password invalid")
+	}
+
 	token, err := helpers.GenerateJWT(ctx, user)
 	if err != nil {
 		return LoginResponse{}, err
