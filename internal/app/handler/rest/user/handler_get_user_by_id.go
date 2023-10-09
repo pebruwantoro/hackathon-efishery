@@ -6,14 +6,14 @@ import (
 	"github.com/pebruwantoro/hackathon-efishery/internal/pkg/response"
 )
 
-func (h *handler) GetUserByUUID(c echo.Context) (err error) {
+func (h *handler) GetUserByID(c echo.Context) (err error) {
 	ctx := c.Request().Context()
 
 	req := user.GetUserByUUIDRequest{
-		UUID: c.Param("uuid"),
+		Id: c.Param("id"),
 	}
 
-	resp, err := h.userUsecase.GetUserByUUID(ctx, req)
+	resp, err := h.userUsecase.GetUserByID(ctx, req)
 	if err != nil {
 		return
 	}

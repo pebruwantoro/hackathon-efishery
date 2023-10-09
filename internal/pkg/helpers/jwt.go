@@ -14,9 +14,9 @@ type UserClaims struct {
 	Email    string `json:"email"`
 	Exp      int64  `json:"exp"`
 	Name     string `json:"name"`
-	Role     string `json:"role"`
+	Role     uint   `json:"role"`
 	Username string `json:"username"`
-	UUID     string `json:"uuid"`
+	ID       uint   `json:"uuid"`
 }
 
 func GenerateJWT(ctx context.Context, user entity.User) (token string, err error) {
@@ -25,11 +25,11 @@ func GenerateJWT(ctx context.Context, user entity.User) (token string, err error
 	duration, _ := time.ParseDuration(cfg.Token.Expired)
 
 	claims := jwt.MapClaims{}
-	claims["uuid"] = user.UUID
+	claims["id"] = user.ID
 	claims["name"] = user.Name
 	claims["username"] = user.Username
 	claims["email"] = user.Email
-	claims["role"] = user.AccessRole
+	claims["role"] = user.RoleId
 	claims["exp"] = time.Now().Add(duration).Unix()
 	jwtNew := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 

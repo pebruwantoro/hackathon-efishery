@@ -19,7 +19,7 @@ func init() {
 
 func mig_20231009162159_objectives_up(tx *gorm.DB) error {
 	err := tx.Exec(`CREATE TABLE IF NOT EXISTS objectives (
-		id INT,
+		id SERIAL NOT NULL,
 		name VARCHAR(255) NOT NULL,
 		description TEXT NULL,
 		weight int8 NOT NULL,
