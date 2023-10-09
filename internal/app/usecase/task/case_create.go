@@ -16,8 +16,6 @@ func (u *usecase) Create(ctx context.Context, req CreateTaskRequest) error {
 		Description: req.Description,
 		Point:       req.Point,
 		Status:      req.Status,
-		DueDate:     req.DueDate,
-		StartDate:   req.StartDate,
 	}
 	task.SetCreated(req.CreatedBy)
 	task.SetUpdated(req.CreatedBy)

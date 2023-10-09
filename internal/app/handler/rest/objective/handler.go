@@ -7,6 +7,8 @@ import (
 
 type ObjectiveHandler interface {
 	GetSoloObjectiveByUserID(c echo.Context) (err error)
+	Create(c echo.Context) (err error)
+	Update(c echo.Context) (err error)
 }
 
 type handler struct {

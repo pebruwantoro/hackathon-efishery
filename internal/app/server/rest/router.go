@@ -42,9 +42,11 @@ func SetupRouter(server *echo.Echo, container *container.Container) {
 		tasks.GET("/:id/subtasks", taskHandler.GetBySubtaskID, AuthManagerialMiddleware(container))
 	}
 
-	objective := server.Group("/v1/objective")
+	objective := server.Group("/v1/objectives")
 	{
 		objective.GET("/solo/:user_id", objectiveHandler.GetSoloObjectiveByUserID)
+		objective.POST("", objectiveHandler.Create)
+		objective.PUT("/:id", objectiveHandler.Update)
 	}
 
 }

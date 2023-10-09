@@ -8,10 +8,13 @@ import (
 
 type ObjectiveUsecase interface {
 	GetObjectiveByID(ctx context.Context, req GetObjectiveByUUIDRequest) (result []*ObjectiveResponse, err error)
+	Create(ctx context.Context, req CreateObjectiveRequest) (err error)
+	Update(ctx context.Context, req UpdateObjectiveRequest) (err error)
 }
 
 type usecase struct {
-	objectiveRepository repository.Objectives
+	objectiveRepository      repository.Objectives
+	objectiveUsersRepository repository.ObjectivesUser
 }
 
 func NewUsecase() *usecase {
@@ -22,9 +25,18 @@ func (s *usecase) SetObjectiveRepository(repo repository.Objectives) *usecase {
 	s.objectiveRepository = repo
 	return s
 }
+
+func (s *usecase) SetObjectiveUserRepository(repo repository.ObjectivesUser) *usecase {
+	s.objectiveUsersRepository = repo
+	return s
+}
+
 func (s *usecase) Validate() ObjectiveUsecase {
 	if s.objectiveRepository == nil {
 		panic("objectiveRepository is nil")
+	}
+	if s.objectiveUsersRepository == nil {
+		panic("objectiveUsersRepository is nil")
 	}
 
 	return s

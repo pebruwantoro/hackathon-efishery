@@ -12,6 +12,7 @@ type Objectives interface {
 	GetPartyObjectiveByUserID(ctx context.Context, UserID int) (entities []entity.UserLevel, err error)
 	GetUserObjectiveByUserID(ctx context.Context, UserID int) (entities []entity.ObjectiveUser, err error)
 	GetObjectiveByID(ctx context.Context, IDs []int) (entities []entity.Objective, err error)
+	GetObjectiveByName(ctx context.Context, name string) (entity entity.Objective, err error)
 	Create(ctx context.Context, entity *entity.Objective) (err error)
 	Update(ctx context.Context, entity *entity.Objective) (err error)
 	Delete(ctx context.Context, entity *entity.Objective) (err error)
@@ -59,5 +60,10 @@ func (r *objectives) Update(ctx context.Context, entity *entity.Objective) (err 
 }
 func (r *objectives) Delete(ctx context.Context, entity *entity.Objective) (err error) {
 	err = r.db.WithContext(ctx).Delete(entity).Error
+	return
+}
+
+func (r *objectives) GetObjectiveByName(ctx context.Context, name string) (entity entity.Objective, err error) {
+	err = r.db.WithContext(ctx).Where("name = ?", name).Last(entity).Error
 	return
 }

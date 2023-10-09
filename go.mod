@@ -7,6 +7,9 @@ require (
 	github.com/go-playground/validator/v10 v10.11.0
 	github.com/go-resty/resty/v2 v2.7.0
 	github.com/gogo/protobuf v1.3.2
+	github.com/golang-jwt/jwt v3.2.2+incompatible
+	github.com/golang-jwt/jwt/v4 v4.5.0
+	github.com/jinzhu/copier v0.4.0
 	github.com/labstack/echo/v4 v4.11.1
 	github.com/lib/pq v1.10.2
 	github.com/opentracing/opentracing-go v1.2.0
@@ -22,6 +25,7 @@ require (
 	go.elastic.co/apm/module/apmzap/v2 v2.1.0
 	go.elastic.co/apm/v2 v2.1.0
 	go.uber.org/zap v1.17.0
+	golang.org/x/crypto v0.14.0
 	gorm.io/driver/mysql v1.3.5
 	gorm.io/gorm v1.24.1-0.20221019064659-5dd2bb482755
 )
@@ -38,9 +42,6 @@ require (
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
-	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
-	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
-	github.com/google/uuid v1.3.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
@@ -52,11 +53,9 @@ require (
 	github.com/jackc/pgtype v1.12.0 // indirect
 	github.com/jackc/pgx/v4 v4.17.2 // indirect
 	github.com/jcchavezs/porto v0.1.0 // indirect
-	github.com/jinzhu/copier v0.4.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/joeshaw/multierror v0.0.0-20140124173710-69b34d4ec901 // indirect
-	github.com/labstack/echo v3.3.10+incompatible // indirect
 	github.com/labstack/gommon v0.4.0 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
@@ -81,7 +80,6 @@ require (
 	go.elastic.co/fastjson v1.1.0 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
-	golang.org/x/crypto v0.14.0 // indirect
 	golang.org/x/mod v0.8.0 // indirect
 	golang.org/x/net v0.12.0 // indirect
 	golang.org/x/sys v0.13.0 // indirect
