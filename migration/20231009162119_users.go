@@ -25,7 +25,7 @@ func mig_20231009162119_users_up(tx *gorm.DB) error {
 		email VARCHAR(50) NOT NULL,
 		role_id INT NOT NULL,
 		password TEXT NOT NULL,
-		salary numeric(20, 2) NULL,
+		sallary numeric(20, 2) NULL,
 		created_at timestamptz NOT NULL,
 		created_by VARCHAR(255) NOT NULL,
 		updated_at timestamptz NOT NULL,

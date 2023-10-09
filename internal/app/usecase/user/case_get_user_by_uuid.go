@@ -31,9 +31,9 @@ func (u *usecase) GetUserByID(ctx context.Context, req GetUserByUUIDRequest) (Ge
 			Email:    user.Email,
 		},
 		Point: UserPoint{
-			Level:    point.Level,
-			TotalHp:  point.TotalHp,
-			TotalExp: point.TotalExp,
+			Level:           int(point.LevelID),
+			HealthPoint:     point.HealthPoint,
+			ExperiencePoint: point.ExperiencePoint,
 		},
 	}
 
