@@ -19,6 +19,16 @@ type Objective struct {
 	DeletedBy      string    `json:"deleted_by"`
 }
 
+func (o *Objective) SetCreated(created string) {
+	o.CreatedAt = time.Now()
+	o.CreatedBy = created
+}
+
+func (o *Objective) SetUpdated(updated string) {
+	o.UpdatedAt = time.Now()
+	o.UpdatedBy = updated
+}
+
 func (o *Objective) TableName() string {
 	return "objectives"
 }
