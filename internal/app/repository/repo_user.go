@@ -9,6 +9,8 @@ import (
 
 type Users interface {
 	GetByUUID(ctx context.Context, uuid string) (entity entity.User, err error)
+	GetByEmail(ctx context.Context, email string) (entity entity.User, err error)
+	GetByUsername(ctx context.Context, username string) (entity entity.User, err error)
 	GetAll(ctx context.Context) (entities []entity.User, err error)
 	Create(ctx context.Context, entity *entity.User) (err error)
 	Update(ctx context.Context, entity *entity.User) (err error)
@@ -49,5 +51,16 @@ func (r *users) Update(ctx context.Context, entity *entity.User) (err error) {
 
 func (r *users) Delete(ctx context.Context, entity *entity.User) (err error) {
 	err = r.db.WithContext(ctx).Delete(entity).Error
+	return
+}
+
+func (r *users) GetByEmail(ctx context.Context, email string) (entity entity.User, err error) {
+	err = r.db.WithContext(ctx).Where("email = ?", email).First(&entity).Error
+	return
+}
+
+func (r *users) GetByUsername(ctx context.Context, username string) (entity entity.User, err error) {
+	// err = r.db.WithContext(ctx).Last(&entity, username).Error
+	err = r.db.WithContext(ctx).Where("username = ?", username).First(&entity).Error
 	return
 }

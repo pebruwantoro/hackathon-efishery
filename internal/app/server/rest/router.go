@@ -15,8 +15,9 @@ func SetupRouter(server *echo.Echo, container *container.Container) {
 
 	server.GET("/", healthCheckHandler.Check)
 
-	organization := server.Group("/v1/users")
+	users := server.Group("/v1/users")
 	{
-		organization.POST("", userHandler.Create)
+		users.POST("", userHandler.Create)
+		users.POST("/login", userHandler.Login)
 	}
 }

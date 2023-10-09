@@ -20,7 +20,7 @@ func init() {
 func mig_20231009112049_create_roles_table_up(tx *gorm.DB) error {
 	err := tx.Exec(`CREATE TABLE IF NOT EXISTS roles (
 		id bigserial NOT NULL,
-		name_uuid VARCHAR(50) NOT NULL,
+		name VARCHAR(50) NOT NULL,
 		CONSTRAINT roles_pkey PRIMARY KEY (id)
 	)`).Error
 

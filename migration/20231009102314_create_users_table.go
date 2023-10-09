@@ -29,7 +29,7 @@ func mig_20231009102314_create_users_table_up(tx *gorm.DB) error {
 		created_by VARCHAR(255) NOT NULL,
 		updated_at timestamptz NOT NULL,
 		updated_by VARCHAR(255) NOT NULL,
-		deleted_at timestamptz NOT NULL,
+		deleted_at timestamptz NULL,
 		deleted_by VARCHAR(255) NULL,
 		CONSTRAINT users_pkey PRIMARY KEY (uuid)
 	)`).Error

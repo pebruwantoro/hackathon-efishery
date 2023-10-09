@@ -27,5 +27,9 @@
     "host": "https://feeder.free.beeceptor.com",
     "timeout": "30s",
     "skiptls": true
+  },
+  "token": {
+    "secret": "",
+    "expired": "24h"
   }
 }

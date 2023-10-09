@@ -8,6 +8,7 @@ import (
 
 type UserUsecase interface {
 	Create(ctx context.Context, req CreateUserRequest) error
+	Login(ctx context.Context, req LoginRequest) (LoginResponse, error)
 }
 
 type usecase struct {

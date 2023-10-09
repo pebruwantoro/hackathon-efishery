@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/google/uuid"
 	"github.com/pebruwantoro/hackathon-efishery/internal/app/entity"
@@ -31,7 +32,7 @@ func (u *usecase) Create(ctx context.Context, req CreateUserRequest) (err error)
 		return err
 	}
 	user.AccessRole = role.Name
-
+	fmt.Println("user", user)
 	err = u.userRepository.Create(ctx, &user)
 	if err != nil {
 		return err

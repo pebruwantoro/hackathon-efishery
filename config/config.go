@@ -14,6 +14,7 @@ type Config struct {
 	Beeceptor  BeeceptorConfig  `mapstructure:"beeceptor"`
 	ElasticAPM ElasticAPMConfig `mapstructure:"elasticApm"`
 	RabbitMQ   RabbitMQConfig   `mapstructure:"rabbitmq"`
+	Token      TokenConfig      `mapstructure:"token"`
 }
 
 type AppConfig struct {
@@ -61,6 +62,11 @@ type RabbitMQConfig struct {
 	Username string `mapstructure:"username"`
 	Password string `mapstructure:"password"`
 	Port     int    `mapstructure:"port"`
+}
+
+type TokenConfig struct {
+	Secret  string `mapstructure:"secret"`
+	Expired string `mapstructure:"expired"`
 }
 
 func Load() Config {

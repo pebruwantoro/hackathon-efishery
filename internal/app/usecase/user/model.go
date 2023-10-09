@@ -9,4 +9,13 @@ type CreateUserRequest struct {
 	CreatedBy string `json:"created_by"`
 }
 
-type CreateUserResponse struct{}
+type LoginRequest struct {
+	Username string `json:"username"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+type LoginResponse struct {
+	Username string `json:"username"`
+	Token    string `json:"token"`
+}
