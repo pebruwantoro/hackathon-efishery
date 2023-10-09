@@ -18,12 +18,13 @@ func (s *usecase) GetObjectiveByID(ctx context.Context, req GetObjectiveByUUIDRe
 	objID := make([]int, 0)
 	for _, objUser := range resultObjUser {
 		objID = append(objID, int(objUser.ObjectiveID))
-		fmt.Println("objUser.ObjectiveID: ", objUser.ObjectiveID)
 	}
 
 	resultTemp, err := s.objectiveRepository.GetObjectiveByID(ctx, objID)
 
 	var tempObjectives []*ObjectiveResponse
+
+	copier.Copy(&tempObjectives, &resultTemp)
 
 	// create a map to quickly look up modules by their ID
 	ObjectiveByID := make(map[int]*ObjectiveResponse, len(resultTemp))
