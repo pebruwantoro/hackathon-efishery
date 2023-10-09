@@ -36,12 +36,18 @@ func (u *usecase) Create(ctx context.Context, req CreateUserRequest) (err error)
 		return err
 	}
 
+	// GET USER
+	dataUser, err := u.userRepository.GetByEmail(ctx, user.Email)
+	if err != nil {
+		return err
+	}
+
 	if user.RoleId != 1 {
 		point := entity.UserLevel{
-			UserID:   user.ID,
-			Level:    pkg.INITIATE_LEVEL,
-			TotalHp:  pkg.INITIATE_HP,
-			TotalExp: pkg.INITIATE_EXP,
+			UserID:          dataUser.ID,
+			LevelID:         pkg.INITIATE_LEVEL,
+			HealthPoint:     pkg.INITIATE_HP,
+			ExperiencePoint: pkg.INITIATE_EXP,
 		}
 		err = u.userLevelRepository.Create(ctx, &point)
 		if err != nil {

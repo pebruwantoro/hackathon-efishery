@@ -37,9 +37,9 @@ type User struct {
 }
 
 type UserPoint struct {
-	Level    int `json:"level"`
-	TotalHp  int `json:"total_hp"`
-	TotalExp int `json:"total_exp"`
+	Level           int `json:"level"`
+	HealthPoint     int `json:"health_point"`
+	ExperiencePoint int `json:"experience_point"`
 }
 
 type UpdateUserRequest struct {
