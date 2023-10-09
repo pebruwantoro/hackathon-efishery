@@ -24,6 +24,6 @@ func SetupRouter(server *echo.Echo, container *container.Container) {
 	{
 		users.POST("", userHandler.Create, AuthAdminMiddleware(container))
 		users.POST("/login", userHandler.Login)
-		users.GET("/:uuid", userHandler.GetUserByUUID, AuthMiddleware(container))
+		users.GET("/:id", userHandler.GetUserByID, AuthMiddleware(container))
 	}
 }

@@ -21,7 +21,7 @@ type LoginResponse struct {
 }
 
 type GetUserByUUIDRequest struct {
-	UUID string `json:"uuid"`
+	Id string `json:"id"`
 }
 
 type GetUserDetailResponse struct {
@@ -30,7 +30,7 @@ type GetUserDetailResponse struct {
 }
 
 type User struct {
-	UUID     string `json:"uuid"`
+	Id       uint   `json:"id"`
 	Name     string `json:"name"`
 	UserName string `json:"username"`
 	Email    string `json:"email"`

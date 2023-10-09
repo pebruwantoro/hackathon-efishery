@@ -19,7 +19,7 @@ func init() {
 
 func mig_20231009162119_users_up(tx *gorm.DB) error {
 	err := tx.Exec(`CREATE TABLE IF NOT EXISTS users (
-		id INT,
+		id SERIAL NOT NULL,
 		name VARCHAR(50) NOT NULL,
 		username VARCHAR(50) NOT NULL,
 		email VARCHAR(50) NOT NULL,

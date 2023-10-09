@@ -10,7 +10,9 @@ import (
 func (h *handler) Create(c echo.Context) (err error) {
 	ctx := c.Request().Context()
 
-	req := user.CreateUserRequest{}
+	req := user.CreateUserRequest{
+		CreatedBy: c.Request().Header.Get("User-Email"),
+	}
 	if err = validator.Validate(c, &req); err != nil {
 		return
 	}

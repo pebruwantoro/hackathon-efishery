@@ -7,46 +7,46 @@ import (
 	"gorm.io/gorm"
 )
 
-type UserPoints interface {
-	GetByUserUUID(ctx context.Context, uuid string) (entity entity.UserPoint, err error)
-	Create(ctx context.Context, entity *entity.UserPoint) (err error)
-	Update(ctx context.Context, entity *entity.UserPoint) (err error)
-	Delete(ctx context.Context, entity *entity.UserPoint) (err error)
+type UserLevels interface {
+	GetByUserUUID(ctx context.Context, uuid string) (entity entity.UserLevel, err error)
+	Create(ctx context.Context, entity *entity.UserLevel) (err error)
+	Update(ctx context.Context, entity *entity.UserLevel) (err error)
+	Delete(ctx context.Context, entity *entity.UserLevel) (err error)
 }
 
-type userpoints struct {
+type userlevels struct {
 	db *gorm.DB
 }
 
-func NewUserPointRepository(db *gorm.DB) UserPoints {
+func NewUserPointRepository(db *gorm.DB) UserLevels {
 	if db == nil {
 		panic("database is nil")
 	}
 
-	return &userpoints{db}
+	return &userlevels{db}
 }
 
-func (r *userpoints) GetByUserUUID(ctx context.Context, uuid string) (entity entity.UserPoint, err error) {
+func (r *userlevels) GetByUserUUID(ctx context.Context, uuid string) (entity entity.UserLevel, err error) {
 	err = r.db.WithContext(ctx).Where("user_uuid = ?", uuid).First(&entity).Error
 	return
 }
 
-func (r *userpoints) GetAll(ctx context.Context) (entities []entity.UserPoint, err error) {
+func (r *userlevels) GetAll(ctx context.Context) (entities []entity.UserLevel, err error) {
 	err = r.db.WithContext(ctx).Find(&entities).Error
 	return
 }
 
-func (r *userpoints) Create(ctx context.Context, entity *entity.UserPoint) (err error) {
+func (r *userlevels) Create(ctx context.Context, entity *entity.UserLevel) (err error) {
 	err = r.db.WithContext(ctx).Create(entity).Error
 	return
 }
 
-func (r *userpoints) Update(ctx context.Context, entity *entity.UserPoint) (err error) {
+func (r *userlevels) Update(ctx context.Context, entity *entity.UserLevel) (err error) {
 	err = r.db.WithContext(ctx).Save(entity).Error
 	return
 }
 
-func (r *userpoints) Delete(ctx context.Context, entity *entity.UserPoint) (err error) {
+func (r *userlevels) Delete(ctx context.Context, entity *entity.UserLevel) (err error) {
 	err = r.db.WithContext(ctx).Delete(entity).Error
 	return
 }

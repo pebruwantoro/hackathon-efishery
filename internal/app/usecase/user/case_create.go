@@ -3,7 +3,6 @@ package user
 import (
 	"context"
 
-	"github.com/google/uuid"
 	"github.com/pebruwantoro/hackathon-efishery/internal/app/entity"
 	"github.com/pebruwantoro/hackathon-efishery/internal/pkg"
 	"github.com/pebruwantoro/hackathon-efishery/internal/pkg/helpers"
@@ -11,7 +10,6 @@ import (
 
 func (u *usecase) Create(ctx context.Context, req CreateUserRequest) (err error) {
 	user := entity.User{
-		UUID:     uuid.NewString(),
 		Email:    req.Email,
 		Username: req.Username,
 		Name:     req.Name,
@@ -31,22 +29,21 @@ func (u *usecase) Create(ctx context.Context, req CreateUserRequest) (err error)
 	if err != nil {
 		return err
 	}
-	user.AccessRole = role.Name
+	user.RoleId = role.ID
 
 	err = u.userRepository.Create(ctx, &user)
 	if err != nil {
 		return err
 	}
 
-	if user.AccessRole != "ADMIN" {
-		point := entity.UserPoint{
-			UUID:     uuid.NewString(),
-			UserUUID: user.UUID,
+	if user.RoleId != 1 {
+		point := entity.UserLevel{
+			UserID:   user.ID,
 			Level:    pkg.INITIATE_LEVEL,
 			TotalHp:  pkg.INITIATE_HP,
 			TotalExp: pkg.INITIATE_EXP,
 		}
-		err = u.userPointRepository.Create(ctx, &point)
+		err = u.userLevelRepository.Create(ctx, &point)
 		if err != nil {
 			return err
 		}

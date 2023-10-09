@@ -19,7 +19,7 @@ func init() {
 
 func mig_20231009163256_levels_up(tx *gorm.DB) error {
 	err := tx.Exec(`CREATE TABLE IF NOT EXISTS levels (
-		id INT NOT NULL,
+		id SERIAL NOT NULL,
 		level INT NOT NULL,
 		max_exp int8 NOT NULL,
 		CONSTRAINT levels_pkey PRIMARY KEY (id)

@@ -19,7 +19,7 @@ func init() {
 
 func mig_20231009163018_objective_users_up(tx *gorm.DB) error {
 	err := tx.Exec(`CREATE TABLE IF NOT EXISTS objective_users (
-		id INT NOT NULL,
+		id SERIAL NOT NULL,
 		objective_id INT NOT NULL,
 		user_id INT NOT NULL,
 		CONSTRAINT objective_users_pkey PRIMARY KEY (id),

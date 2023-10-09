@@ -177,7 +177,6 @@ func AuthMiddleware(container *container.Container) echo.MiddlewareFunc {
 			}
 
 			c.Request().Header.Add(pkg.HEADER_USER_EMAIL, claims.Email)
-			c.Request().Header.Add(pkg.Header_USER_UUID, claims.UUID)
 
 			return next(c)
 		}
@@ -246,7 +245,7 @@ func AuthAdminMiddleware(container *container.Container) echo.MiddlewareFunc {
 				})
 			}
 
-			if claims.Role != "ADMIN" {
+			if claims.Role != 1 {
 				return c.JSON(401, response.DefaultResponse{
 					Success: false,
 					Message: "Unauthorized",
@@ -254,7 +253,6 @@ func AuthAdminMiddleware(container *container.Container) echo.MiddlewareFunc {
 			}
 
 			c.Request().Header.Add(pkg.HEADER_USER_EMAIL, claims.Email)
-			c.Request().Header.Add(pkg.Header_USER_UUID, claims.UUID)
 
 			return next(c)
 		}
@@ -323,7 +321,7 @@ func AuthManagerialMiddleware(container *container.Container) echo.MiddlewareFun
 				})
 			}
 
-			if claims.Role == "STAFF" {
+			if claims.Role == 4 {
 				return c.JSON(401, response.DefaultResponse{
 					Success: false,
 					Message: "Unauthorized",
@@ -331,7 +329,6 @@ func AuthManagerialMiddleware(container *container.Container) echo.MiddlewareFun
 			}
 
 			c.Request().Header.Add(pkg.HEADER_USER_EMAIL, claims.Email)
-			c.Request().Header.Add(pkg.Header_USER_UUID, claims.UUID)
 
 			return next(c)
 		}

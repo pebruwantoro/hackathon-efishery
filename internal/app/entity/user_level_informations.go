@@ -1,7 +1,7 @@
 package entity
 
 type UserLevelInformation struct {
-	ID     int    `json:"ind"`
+	ID     uint   `json:"id"`
 	Name   string `json:"name"`
 	MaxExp int    `json:"max_exp"`
 }

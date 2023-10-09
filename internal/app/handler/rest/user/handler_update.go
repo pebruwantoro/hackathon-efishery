@@ -10,7 +10,9 @@ import (
 func (h *handler) Update(c echo.Context) (err error) {
 	ctx := c.Request().Context()
 
-	req := user.UpdateUserRequest{}
+	req := user.UpdateUserRequest{
+		UpdatedBy: c.Request().Header.Get("User-Email"),
+	}
 	if err = validator.Validate(c, &req); err != nil {
 		return
 	}
