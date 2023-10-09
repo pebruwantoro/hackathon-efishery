@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type ObjectivesUser interface {
+type ObjectiveUser interface {
 	Create(ctx context.Context, entity *entity.ObjectiveUser) (err error)
 	Update(ctx context.Context, entity *entity.ObjectiveUser) (err error)
 	Delete(ctx context.Context, entity *entity.ObjectiveUser) (err error)
@@ -17,12 +17,12 @@ type objectiveusers struct {
 	db *gorm.DB
 }
 
-func NewObjectiveUserRepository(db *gorm.DB) Objectives {
+func NewObjectiveUserRepository(db *gorm.DB) ObjectiveUser {
 	if db == nil {
 		panic("database is nil")
 	}
 
-	return &objectives{db}
+	return &objectiveusers{db}
 }
 
 func (r *objectiveusers) Create(ctx context.Context, entity *entity.ObjectiveUser) (err error) {

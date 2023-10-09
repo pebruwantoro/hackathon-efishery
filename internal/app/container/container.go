@@ -42,6 +42,7 @@ func Setup() *Container {
 	roleRepo := repository.NewRoleRepository(db)
 	userPointRepo := repository.NewUserPointRepository(db)
 	objectiveRepo := repository.NewObjectiveRepository(db)
+	objectiveUserRepo := repository.NewObjectiveUserRepository(db)
 	taskRepo := repository.NewTaskRepository(db)
 
 	// Setup Usecase
@@ -50,7 +51,7 @@ func Setup() *Container {
 		SetUserPointRepository(userPointRepo).
 		Validate()
 
-	objectiveUsecase := objective.NewUsecase().SetObjectiveRepository(objectiveRepo).
+	objectiveUsecase := objective.NewUsecase().SetObjectiveRepository(objectiveRepo).SetObjectiveUserRepository(objectiveUserRepo).
 		Validate()
 
 	taskUsecase := task.NewUsecase().

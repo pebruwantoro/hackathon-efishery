@@ -14,7 +14,7 @@ type ObjectiveUsecase interface {
 
 type usecase struct {
 	objectiveRepository      repository.Objectives
-	objectiveUsersRepository repository.ObjectivesUser
+	objectiveUsersRepository repository.ObjectiveUser
 }
 
 func NewUsecase() *usecase {
@@ -26,7 +26,7 @@ func (s *usecase) SetObjectiveRepository(repo repository.Objectives) *usecase {
 	return s
 }
 
-func (s *usecase) SetObjectiveUserRepository(repo repository.ObjectivesUser) *usecase {
+func (s *usecase) SetObjectiveUserRepository(repo repository.ObjectiveUser) *usecase {
 	s.objectiveUsersRepository = repo
 	return s
 }
