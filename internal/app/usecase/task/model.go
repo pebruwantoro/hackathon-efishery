@@ -3,14 +3,12 @@ package task
 import "time"
 
 type CreateTaskRequest struct {
-	ObjectiveID int       `json:"objective_id"`
-	Name        string    `json:"name"`
-	Description string    `json:"description"`
-	Point       int       `json:"point"`
-	Status      string    `json:"status"`
-	DueDate     time.Time `json:"due_date"`
-	StartDate   time.Time `json:"start_date"`
-	CreatedBy   string    `json:"created_by"`
+	ObjectiveID int    `json:"objective_id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Point       int    `json:"point"`
+	Status      string `json:"status"`
+	CreatedBy   string `json:"created_by"`
 }
 
 type GetByIdRequest struct {
@@ -34,16 +32,13 @@ type GetTaskDetailResponse struct {
 }
 
 type UpdateTaskRequest struct {
-	Id          int       `json:"id"`
-	ObjectiveID int       `json:"objective_id"`
-	Name        string    `json:"name"`
-	Description string    `json:"description"`
-	Point       int       `json:"point"`
-	Status      string    `json:"status"`
-	DueDate     time.Time `json:"due_date"`
-	StartDate   time.Time `json:"start_date"`
-	EndDate     time.Time `json:"end_date"`
-	UpdatedBy   string    `json:"updated_by"`
+	Id          int    `json:"id"`
+	ObjectiveID int    `json:"objective_id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Point       int    `json:"point"`
+	Status      string `json:"status"`
+	UpdatedBy   string `json:"updated_by"`
 }
 
 type GetByObjectiveIdRequest struct {
