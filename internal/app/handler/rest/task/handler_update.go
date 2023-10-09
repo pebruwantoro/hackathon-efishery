@@ -1,30 +1,23 @@
-package user
+package task
 
 import (
-	"strconv"
-
 	"github.com/labstack/echo/v4"
-	"github.com/pebruwantoro/hackathon-efishery/internal/app/usecase/user"
+	"github.com/pebruwantoro/hackathon-efishery/internal/app/usecase/task"
 	"github.com/pebruwantoro/hackathon-efishery/internal/pkg/response"
 	"github.com/pebruwantoro/hackathon-efishery/internal/pkg/validator"
 )
 
 func (h *handler) Update(c echo.Context) (err error) {
 	ctx := c.Request().Context()
-	id, err := strconv.Atoi(c.Param("id"))
-	if err != nil {
-		return
-	}
 
-	req := user.UpdateUserRequest{
-		ID:        id,
+	req := task.UpdateTaskRequest{
 		UpdatedBy: c.Request().Header.Get("User-Email"),
 	}
 	if err = validator.Validate(c, &req); err != nil {
 		return
 	}
 
-	err = h.userUsecase.Update(ctx, req)
+	err = h.taskUsecase.Update(ctx, req)
 	if err != nil {
 		return
 	}

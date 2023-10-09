@@ -8,7 +8,7 @@ import (
 )
 
 type UserLevels interface {
-	GetByUserUUID(ctx context.Context, uuid string) (entity entity.UserLevel, err error)
+	GetByUserID(ctx context.Context, id int) (entity entity.UserLevel, err error)
 	Create(ctx context.Context, entity *entity.UserLevel) (err error)
 	Update(ctx context.Context, entity *entity.UserLevel) (err error)
 	Delete(ctx context.Context, entity *entity.UserLevel) (err error)
@@ -26,8 +26,8 @@ func NewUserPointRepository(db *gorm.DB) UserLevels {
 	return &userlevels{db}
 }
 
-func (r *userlevels) GetByUserUUID(ctx context.Context, uuid string) (entity entity.UserLevel, err error) {
-	err = r.db.WithContext(ctx).Where("user_uuid = ?", uuid).First(&entity).Error
+func (r *userlevels) GetByUserID(ctx context.Context, id int) (entity entity.UserLevel, err error) {
+	err = r.db.WithContext(ctx).Where("user_id = ?", id).First(&entity).Error
 	return
 }
 

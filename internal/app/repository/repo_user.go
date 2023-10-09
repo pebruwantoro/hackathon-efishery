@@ -8,7 +8,7 @@ import (
 )
 
 type Users interface {
-	GetByUUID(ctx context.Context, uuid string) (entity entity.User, err error)
+	GetByID(ctx context.Context, id int) (entity entity.User, err error)
 	GetByEmail(ctx context.Context, email string) (entity entity.User, err error)
 	GetByUsername(ctx context.Context, username string) (entity entity.User, err error)
 	GetAll(ctx context.Context) (entities []entity.User, err error)
@@ -29,8 +29,8 @@ func NewUserRepository(db *gorm.DB) Users {
 	return &users{db}
 }
 
-func (r *users) GetByUUID(ctx context.Context, uuid string) (entity entity.User, err error) {
-	err = r.db.WithContext(ctx).Where("uuid = ?", uuid).First(&entity).Error
+func (r *users) GetByID(ctx context.Context, id int) (entity entity.User, err error) {
+	err = r.db.WithContext(ctx).Where("id = ?", id).First(&entity).Error
 	return
 }
 
