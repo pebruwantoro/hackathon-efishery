@@ -30,7 +30,7 @@ func NewUserRepository(db *gorm.DB) Users {
 }
 
 func (r *users) GetByUUID(ctx context.Context, uuid string) (entity entity.User, err error) {
-	err = r.db.WithContext(ctx).Last(&entity, uuid).Error
+	err = r.db.WithContext(ctx).Where("uuid = ?", uuid).First(&entity).Error
 	return
 }
 
@@ -60,7 +60,6 @@ func (r *users) GetByEmail(ctx context.Context, email string) (entity entity.Use
 }
 
 func (r *users) GetByUsername(ctx context.Context, username string) (entity entity.User, err error) {
-	// err = r.db.WithContext(ctx).Last(&entity, username).Error
 	err = r.db.WithContext(ctx).Where("username = ?", username).First(&entity).Error
 	return
 }

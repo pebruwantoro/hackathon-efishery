@@ -19,5 +19,6 @@ func SetupRouter(server *echo.Echo, container *container.Container) {
 	{
 		users.POST("", userHandler.Create)
 		users.POST("/login", userHandler.Login)
+		users.GET("/:uuid", userHandler.GetUserByUUID)
 	}
 }

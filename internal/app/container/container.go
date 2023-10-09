@@ -36,9 +36,13 @@ func Setup() *Container {
 	// Setup Repository
 	userRepo := repository.NewUserRepository(db)
 	roleRepo := repository.NewRoleRepository(db)
+	userPointRepo := repository.NewUserPointRepository(db)
 
 	// Setup Usecase
-	userUsecase := user.NewUsecase().SetUserRepository(userRepo).SetRoleRepository(roleRepo).Validate()
+	userUsecase := user.NewUsecase().SetUserRepository(userRepo).
+		SetRoleRepository(roleRepo).
+		SetUserPointRepository(userPointRepo).
+		Validate()
 
 	return &Container{
 		Config:      cfg,
