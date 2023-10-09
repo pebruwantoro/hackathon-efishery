@@ -19,3 +19,43 @@ type LoginResponse struct {
 	Username string `json:"username"`
 	Token    string `json:"token"`
 }
+
+type GetUserByUUIDRequest struct {
+	UUID string `json:"uuid"`
+}
+
+type GetUserDetailResponse struct {
+	User  User      `json:"user"`
+	Point UserPoint `json:"point"`
+}
+
+type User struct {
+	UUID     string `json:"uuid"`
+	Name     string `json:"name"`
+	UserName string `json:"username"`
+	Email    string `json:"email"`
+}
+
+type UserPoint struct {
+	Level    int `json:"level"`
+	TotalHp  int `json:"total_hp"`
+	TotalExp int `json:"total_exp"`
+}
+
+type UpdateUserRequest struct {
+	UUID      string `json:"uuid"`
+	Email     string `json:"email"`
+	Username  string `json:"username"`
+	Name      string `json:"name"`
+	Password  string `json:"password"`
+	UpdatedBy string `json:"updated_by"`
+}
+
+type UpdateUserResponse struct {
+	UUID      string `json:"uuid"`
+	Email     string `json:"email"`
+	Username  string `json:"username"`
+	Name      string `json:"name"`
+	Password  string `json:"password"`
+	UpdatedBy string `json:"updated_by"`
+}

@@ -15,9 +15,15 @@ func SetupRouter(server *echo.Echo, container *container.Container) {
 
 	server.GET("/", healthCheckHandler.Check)
 
+	admin := server.Group("/v1/users/admin")
+	{
+		admin.POST("", userHandler.Create)
+	}
+
 	users := server.Group("/v1/users")
 	{
-		users.POST("", userHandler.Create)
+		users.POST("", userHandler.Create, AuthAdminMiddleware(container))
 		users.POST("/login", userHandler.Login)
+		users.GET("/:uuid", userHandler.GetUserByUUID, AuthMiddleware(container))
 	}
 }
