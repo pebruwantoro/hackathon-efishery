@@ -9,7 +9,7 @@ import (
 type UserUsecase interface {
 	Create(ctx context.Context, req CreateUserRequest) error
 	Login(ctx context.Context, req LoginRequest) (LoginResponse, error)
-	GetUserByID(ctx context.Context, req GetUserByUUIDRequest) (GetUserDetailResponse, error)
+	GetUserByID(ctx context.Context, req GetUserByIDRequest) (GetUserDetailResponse, error)
 	Update(ctx context.Context, req UpdateUserRequest) error
 }
 

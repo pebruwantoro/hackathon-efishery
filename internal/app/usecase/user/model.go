@@ -20,8 +20,8 @@ type LoginResponse struct {
 	Token    string `json:"token"`
 }
 
-type GetUserByUUIDRequest struct {
-	Id string `json:"id"`
+type GetUserByIDRequest struct {
+	Id int `json:"id"`
 }
 
 type GetUserDetailResponse struct {
@@ -43,7 +43,7 @@ type UserPoint struct {
 }
 
 type UpdateUserRequest struct {
-	UUID      string `json:"uuid"`
+	ID        int    `json:"uuid"`
 	Email     string `json:"email"`
 	Username  string `json:"username"`
 	Name      string `json:"name"`

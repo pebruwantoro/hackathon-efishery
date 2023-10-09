@@ -27,6 +27,7 @@ func SetupRouter(server *echo.Echo, container *container.Container) {
 		users.POST("", userHandler.Create, AuthAdminMiddleware(container))
 		users.POST("/login", userHandler.Login)
 		users.GET("/:id", userHandler.GetUserByID, AuthMiddleware(container))
+		users.PUT("/:id", userHandler.Update, AuthMiddleware(container))
 	}
 
 	tasks := server.Group("/v1/tasks")

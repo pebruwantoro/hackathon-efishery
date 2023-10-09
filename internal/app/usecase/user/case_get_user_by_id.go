@@ -6,9 +6,9 @@ import (
 	"github.com/pebruwantoro/hackathon-efishery/internal/app/entity"
 )
 
-func (u *usecase) GetUserByID(ctx context.Context, req GetUserByUUIDRequest) (GetUserDetailResponse, error) {
+func (u *usecase) GetUserByID(ctx context.Context, req GetUserByIDRequest) (GetUserDetailResponse, error) {
 	// GET ENTITY USER
-	user, err := u.userRepository.GetByUUID(ctx, req.Id)
+	user, err := u.userRepository.GetByID(ctx, req.Id)
 	if err != nil {
 		return GetUserDetailResponse{}, err
 	}
@@ -16,7 +16,7 @@ func (u *usecase) GetUserByID(ctx context.Context, req GetUserByUUIDRequest) (Ge
 	point := entity.UserLevel{}
 	if user.RoleId != 1 {
 		// GET ENTITY USER POINTS
-		userPoint, err := u.userLevelRepository.GetByUserUUID(ctx, req.Id)
+		userPoint, err := u.userLevelRepository.GetByUserID(ctx, req.Id)
 		if err != nil {
 			return GetUserDetailResponse{}, err
 		}
