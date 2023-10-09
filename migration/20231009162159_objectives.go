@@ -9,17 +9,17 @@ import (
 func init() {
 	migrator.AddMigration(&Migration{
 		ID:        0,
-		Name:      "20231009105703_create_objectives_table",
+		Name:      "20231009162159_objectives",
 		Batch:     0,
 		CreatedAt: time.Time{},
-		Up:        mig_20231009105703_create_objectives_table_up,
-		Down:      mig_20231009105703_create_objectives_table_down,
+		Up:        mig_20231009162159_objectives_up,
+		Down:      mig_20231009162159_objectives_down,
 	})
 }
 
-func mig_20231009105703_create_objectives_table_up(tx *gorm.DB) error {
+func mig_20231009162159_objectives_up(tx *gorm.DB) error {
 	err := tx.Exec(`CREATE TABLE IF NOT EXISTS objectives (
-		uuid VARCHAR(50) NOT NULL,
+		id INT,
 		name VARCHAR(255) NOT NULL,
 		description TEXT NULL,
 		weight int8 NOT NULL,
@@ -32,13 +32,13 @@ func mig_20231009105703_create_objectives_table_up(tx *gorm.DB) error {
 		updated_by VARCHAR(255) NOT NULL,
 		deleted_at timestamptz NOT NULL,
 		deleted_by VARCHAR(255) NULL,
-		CONSTRAINT objectives_pkey PRIMARY KEY (uuid)
+		CONSTRAINT objectives_pkey PRIMARY KEY (id)
 	)`).Error
 
 	return err
 }
 
-func mig_20231009105703_create_objectives_table_down(tx *gorm.DB) error {
+func mig_20231009162159_objectives_down(tx *gorm.DB) error {
 	err := tx.Exec(`DROP TABLE IF EXISTS objectives`).Error
 	return err
 }
