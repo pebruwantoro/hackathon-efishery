@@ -3,11 +3,13 @@ package entity
 import "time"
 
 type Task struct {
-	ID          uint      `json:"id"`
-	ObjectiveID uint      `json:"objective_id"`
+	ID          int       `json:"id"`
+	ObjectiveID int       `json:"objective_id"`
+	SubtaskID   int       `json:"subtask_id"`
 	Name        string    `json:"name"`
 	Description string    `json:"description"`
 	Point       int       `json:"point"`
+	UserID      int       `json:"user_id"`
 	Status      string    `json:"status"`
 	DueDate     time.Time `json:"due_date"`
 	StartDate   time.Time `json:"start_date"`

@@ -11,7 +11,7 @@ func (u *usecase) Create(ctx context.Context, req CreateTaskRequest) error {
 
 	// MAPPING OBJECT
 	task := entity.Task{
-		ObjectiveID: uint(req.ObjectiveID),
+		ObjectiveID: req.ObjectiveID,
 		Name:        req.Name,
 		Description: req.Description,
 		Point:       req.Point,

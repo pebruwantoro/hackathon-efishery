@@ -12,6 +12,7 @@ type TaskUsecase interface {
 	Update(ctx context.Context, req UpdateTaskRequest) error
 	GetByObjectiveID(ctx context.Context, req GetByObjectiveIdRequest) ([]GetTaskDetailResponse, error)
 	GetBySubtaskID(ctx context.Context, req GetBySubtaskIdRequest) ([]GetTaskDetailResponse, error)
+	GetByUserID(ctx context.Context, userID int) (resp []*GetTaskResponse, err error)
 }
 
 type usecase struct {

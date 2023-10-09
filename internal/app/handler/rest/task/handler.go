@@ -11,6 +11,7 @@ type TaskHandler interface {
 	GetByObjectiveID(c echo.Context) (err error)
 	GetBySubtaskID(c echo.Context) (err error)
 	Update(c echo.Context) (err error)
+	GetByUserID(c echo.Context) (err error)
 }
 
 type handler struct {

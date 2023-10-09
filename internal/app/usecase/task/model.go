@@ -18,8 +18,8 @@ type GetByIdRequest struct {
 }
 
 type GetTaskDetailResponse struct {
-	ID          uint      `json:"id"`
-	ObjectiveID uint      `json:"objective_id"`
+	ID          int       `json:"id"`
+	ObjectiveID int       `json:"objective_id"`
 	Name        string    `json:"name"`
 	Description string    `json:"description"`
 	Point       int       `json:"point"`
@@ -31,6 +31,25 @@ type GetTaskDetailResponse struct {
 	CreatedBy   string    `json:"created_by"`
 	UpdatedAt   time.Time `json:"updated_at"`
 	UpdatedBy   string    `json:"updated_by"`
+}
+
+type GetTaskResponse struct {
+	ID            int                `json:"id"`
+	ObjectiveID   int                `json:"objective_id"`
+	ObjectiveName string             `json:"objective_name"`
+	SubtaskID     int                `json:"subtask_id"`
+	Name          string             `json:"name"`
+	Description   string             `json:"description"`
+	Point         int                `json:"point"`
+	Status        string             `json:"status"`
+	DueDate       time.Time          `json:"due_date"`
+	StartDate     time.Time          `json:"start_date"`
+	EndDate       time.Time          `json:"end_date"`
+	CreatedAt     time.Time          `json:"created_at"`
+	CreatedBy     string             `json:"created_by"`
+	UpdatedAt     time.Time          `json:"updated_at"`
+	UpdatedBy     string             `json:"updated_by"`
+	Subtask       []*GetTaskResponse `json:"subtask"`
 }
 
 type UpdateTaskRequest struct {

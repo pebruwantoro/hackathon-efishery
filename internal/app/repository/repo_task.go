@@ -9,6 +9,7 @@ import (
 
 type Tasks interface {
 	GetByID(ctx context.Context, id uint) (entity entity.Task, err error)
+	GetByUserID(ctx context.Context, userID int) (entities []entity.Task, err error)
 	GetAll(ctx context.Context) (entities []entity.Task, err error)
 	Create(ctx context.Context, entity *entity.Task) (err error)
 	Update(ctx context.Context, entity *entity.Task) (err error)
@@ -27,6 +28,11 @@ func NewTaskRepository(db *gorm.DB) Tasks {
 	}
 
 	return &tasks{db}
+}
+
+func (r *tasks) GetByUserID(ctx context.Context, userID int) (entities []entity.Task, err error) {
+	err = r.db.WithContext(ctx).Where("user_id = ?", userID).Find(&entities).Error
+	return
 }
 
 func (r *tasks) GetByID(ctx context.Context, id uint) (entity entity.Task, err error) {

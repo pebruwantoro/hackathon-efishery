@@ -34,6 +34,7 @@ func SetupRouter(server *echo.Echo, container *container.Container) {
 
 	tasks := server.Group("/v1/tasks")
 	{
+		tasks.GET("/list/:user_id", taskHandler.GetByUserID)
 		tasks.POST("", taskHandler.Create, AuthManagerialMiddleware(container))
 		tasks.PUT("/:id", taskHandler.Update, AuthManagerialMiddleware(container))
 		tasks.GET("/:id", taskHandler.GetByID, AuthManagerialMiddleware(container))
