@@ -51,7 +51,8 @@ func Setup() *Container {
 		SetUserPointRepository(userPointRepo).
 		Validate()
 
-	objectiveUsecase := objective.NewUsecase().SetObjectiveRepository(objectiveRepo).SetObjectiveUserRepository(objectiveUserRepo).
+	objectiveUsecase := objective.NewUsecase().SetObjectiveRepository(objectiveRepo).
+		SetObjectiveUserRepository(objectiveUserRepo).
 		Validate()
 
 	taskUsecase := task.NewUsecase().
