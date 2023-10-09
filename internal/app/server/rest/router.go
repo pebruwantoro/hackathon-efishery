@@ -5,6 +5,7 @@ import (
 
 	"github.com/pebruwantoro/hackathon-efishery/internal/app/container"
 	"github.com/pebruwantoro/hackathon-efishery/internal/app/handler/rest/health_check"
+	"github.com/pebruwantoro/hackathon-efishery/internal/app/handler/rest/task"
 	"github.com/pebruwantoro/hackathon-efishery/internal/app/handler/rest/user"
 )
 
@@ -12,6 +13,7 @@ func SetupRouter(server *echo.Echo, container *container.Container) {
 	// inject handler with usecase via container
 	healthCheckHandler := health_check.NewHandler().Validate()
 	userHandler := user.NewHandler().SetUserUsecase(container.UserUsecase).Validate()
+	taskHandler := task.NewHandler().SetTaskUsecase(container.TaskUsecase).Validate()
 
 	server.GET("/", healthCheckHandler.Check)
 
@@ -25,5 +27,14 @@ func SetupRouter(server *echo.Echo, container *container.Container) {
 		users.POST("", userHandler.Create, AuthAdminMiddleware(container))
 		users.POST("/login", userHandler.Login)
 		users.GET("/:id", userHandler.GetUserByID, AuthMiddleware(container))
+	}
+
+	tasks := server.Group("/v1/tasks")
+	{
+		tasks.POST("", taskHandler.Create, AuthManagerialMiddleware(container))
+		tasks.PUT("/:id", taskHandler.Update, AuthManagerialMiddleware(container))
+		tasks.GET("/:id", taskHandler.GetByID, AuthManagerialMiddleware(container))
+		tasks.GET("/:id/objectives", taskHandler.GetByObjectiveID, AuthManagerialMiddleware(container))
+		tasks.GET("/:id/subtasks", taskHandler.GetBySubtaskID, AuthManagerialMiddleware(container))
 	}
 }
