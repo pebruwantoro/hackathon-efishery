@@ -5,6 +5,7 @@ import (
 
 	"github.com/pebruwantoro/hackathon-efishery/internal/app/container"
 	"github.com/pebruwantoro/hackathon-efishery/internal/app/handler/rest/health_check"
+	"github.com/pebruwantoro/hackathon-efishery/internal/app/handler/rest/objective"
 	"github.com/pebruwantoro/hackathon-efishery/internal/app/handler/rest/user"
 )
 
@@ -12,6 +13,7 @@ func SetupRouter(server *echo.Echo, container *container.Container) {
 	// inject handler with usecase via container
 	healthCheckHandler := health_check.NewHandler().Validate()
 	userHandler := user.NewHandler().SetUserUsecase(container.UserUsecase).Validate()
+	objectiveHandler := objective.NewHandler().SetObjectiveUsecase(container.ObjectiveUsecase).Validate()
 
 	server.GET("/", healthCheckHandler.Check)
 
@@ -26,4 +28,10 @@ func SetupRouter(server *echo.Echo, container *container.Container) {
 		users.POST("/login", userHandler.Login)
 		users.GET("/:id", userHandler.GetUserByID, AuthMiddleware(container))
 	}
+
+	objective := server.Group("/v1/objective")
+	{
+		objective.GET("/solo/:user_id", objectiveHandler.GetSoloObjectiveByUserID)
+	}
+
 }

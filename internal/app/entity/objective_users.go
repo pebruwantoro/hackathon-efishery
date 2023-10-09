@@ -1,9 +1,9 @@
 package entity
 
 type ObjectiveUser struct {
-	ID          uint `json:"id"`
-	ObjectiveID uint `json:"objective_id"`
-	UserID      uint `json:"user_id"`
+	ID          int `json:"id"`
+	ObjectiveID int `json:"objective_id"`
+	UserID      int `json:"user_id"`
 }
 
 func (o *ObjectiveUser) TableName() string {
