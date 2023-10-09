@@ -10,6 +10,7 @@ type UserUsecase interface {
 	Create(ctx context.Context, req CreateUserRequest) error
 	Login(ctx context.Context, req LoginRequest) (LoginResponse, error)
 	GetUserByUUID(ctx context.Context, req GetUserByUUIDRequest) (GetUserDetailResponse, error)
+	Update(ctx context.Context, req UpdateUserRequest) error
 }
 
 type usecase struct {

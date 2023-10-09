@@ -41,3 +41,21 @@ type UserPoint struct {
 	TotalHp  int `json:"total_hp"`
 	TotalExp int `json:"total_exp"`
 }
+
+type UpdateUserRequest struct {
+	UUID      string `json:"uuid"`
+	Email     string `json:"email"`
+	Username  string `json:"username"`
+	Name      string `json:"name"`
+	Password  string `json:"password"`
+	UpdatedBy string `json:"updated_by"`
+}
+
+type UpdateUserResponse struct {
+	UUID      string `json:"uuid"`
+	Email     string `json:"email"`
+	Username  string `json:"username"`
+	Name      string `json:"name"`
+	Password  string `json:"password"`
+	UpdatedBy string `json:"updated_by"`
+}
