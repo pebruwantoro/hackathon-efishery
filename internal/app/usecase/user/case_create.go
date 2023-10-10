@@ -13,6 +13,7 @@ func (u *usecase) Create(ctx context.Context, req CreateUserRequest) (err error)
 		Email:    req.Email,
 		Username: req.Username,
 		Name:     req.Name,
+		Salary:   req.Salary,
 	}
 	user.SetCreated(req.CreatedBy)
 	user.SetUpdated(req.CreatedBy)
