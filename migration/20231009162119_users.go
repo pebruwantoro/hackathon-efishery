@@ -30,8 +30,8 @@ func mig_20231009162119_users_up(tx *gorm.DB) error {
 		created_by VARCHAR(255) NOT NULL,
 		updated_at timestamptz NOT NULL,
 		updated_by VARCHAR(255) NOT NULL,
-		deleted_at timestamptz NULL,
-		deleted_by VARCHAR(255) NULL,
+		deleted_at timestamptz DEFAULT NULL,
+		deleted_by VARCHAR(255) DEFAULT NULL,
 		CONSTRAINT users_pkey PRIMARY KEY (id),
 		CONSTRAINT fk_role_id FOREIGN KEY(role_id) REFERENCES roles(id)
 	)`).Error

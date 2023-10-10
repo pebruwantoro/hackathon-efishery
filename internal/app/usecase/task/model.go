@@ -8,6 +8,10 @@ type CreateTaskRequest struct {
 	Description string `json:"description"`
 	Point       int    `json:"point"`
 	Status      string `json:"status"`
+	ParentId    int    `json:"parent_id"`
+	DueDate     string `json:"due_date"`
+	StartDate   string `json:"start_date"`
+	EndDate     string `json:"end_date"`
 	CreatedBy   string `json:"created_by"`
 }
 

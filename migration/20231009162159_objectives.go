@@ -30,8 +30,8 @@ func mig_20231009162159_objectives_up(tx *gorm.DB) error {
 		created_by VARCHAR(255) NOT NULL,
 		updated_at timestamptz NOT NULL,
 		updated_by VARCHAR(255) NOT NULL,
-		deleted_at timestamptz NOT NULL,
-		deleted_by VARCHAR(255) NULL,
+		deleted_at timestamptz DEFAULT NULL,
+		deleted_by VARCHAR(255) DEFAULT NULL,
 		CONSTRAINT objectives_pkey PRIMARY KEY (id)
 	)`).Error
 
