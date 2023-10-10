@@ -9,7 +9,7 @@ type User struct {
 	Email     string    `json:"email"`
 	RoleId    uint      `json:"role_id"`
 	Password  string    `json:"password"`
-	Salary    float64   `json:"sallary"`
+	Salary    float64   `json:"salary"`
 	CreatedAt time.Time `json:"created_at"`
 	CreatedBy string    `json:"created_by"`
 	UpdatedAt time.Time `json:"updated_at"`
