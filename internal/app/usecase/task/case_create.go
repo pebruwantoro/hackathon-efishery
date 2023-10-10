@@ -31,6 +31,7 @@ func (u *usecase) Create(ctx context.Context, req CreateTaskRequest) error {
 		Point:       req.Point,
 		Status:      req.Status,
 		ParentID:    req.ParentId,
+		UserID:      req.UserID,
 		StartDate:   startDate,
 		EndDate:     endDate,
 		DueDate:     dueDate,

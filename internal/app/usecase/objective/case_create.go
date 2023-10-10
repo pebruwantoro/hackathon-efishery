@@ -24,13 +24,13 @@ func (u *usecase) Create(ctx context.Context, req CreateObjectiveRequest) error 
 	}
 
 	objective := entity.Objective{
-		Name:           req.Name,
-		Description:    req.Description,
-		Weight:         req.Weight,
-		SubobjectiveID: req.SubobjectiveID,
-		StartDate:      startDate,
-		EndDate:        endDate,
-		DueDate:        dueDate,
+		Name:        req.Name,
+		Description: req.Description,
+		Weight:      req.Weight,
+		ParentID:    req.ParentID,
+		StartDate:   startDate,
+		EndDate:     endDate,
+		DueDate:     dueDate,
 	}
 	objective.SetCreated(req.CreatedBy)
 	objective.SetUpdated(req.CreatedBy)
