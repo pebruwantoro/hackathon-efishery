@@ -15,8 +15,6 @@ type Objective struct {
 	CreatedBy      string    `json:"created_by"`
 	UpdatedAt      time.Time `json:"updated_at"`
 	UpdatedBy      string    `json:"updated_by"`
-	DeletedAt      time.Time `json:"deleted_at"`
-	DeletedBy      string    `json:"deleted_by"`
 }
 
 func (o *Objective) SetCreated(created string) {

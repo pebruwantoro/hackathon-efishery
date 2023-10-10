@@ -45,8 +45,8 @@ func SetupRouter(server *echo.Echo, container *container.Container) {
 	objective := server.Group("/v1/objectives")
 	{
 		objective.GET("/solo/:user_id", objectiveHandler.GetSoloObjectiveByUserID)
-		objective.POST("", objectiveHandler.Create)
-		objective.PUT("/:id", objectiveHandler.Update)
+		objective.POST("", objectiveHandler.Create, AuthManagerialMiddleware(container))
+		objective.PUT("/:id", objectiveHandler.Update, AuthManagerialMiddleware(container))
 	}
 
 }

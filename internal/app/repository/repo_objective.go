@@ -51,11 +51,11 @@ func (r *objectives) GetPartyObjectiveByUserID(ctx context.Context, UserID int) 
 }
 
 func (r *objectives) Create(ctx context.Context, entity *entity.Objective) (err error) {
-	err = r.db.WithContext(ctx).Create(entity).Error
+	err = r.db.WithContext(ctx).Omit("deleted_at", "deleted_by").Create(entity).Error
 	return
 }
 func (r *objectives) Update(ctx context.Context, entity *entity.Objective) (err error) {
-	err = r.db.WithContext(ctx).Save(entity).Error
+	err = r.db.WithContext(ctx).Omit("deleted_at", "deleted_by").Save(entity).Error
 	return
 }
 func (r *objectives) Delete(ctx context.Context, entity *entity.Objective) (err error) {

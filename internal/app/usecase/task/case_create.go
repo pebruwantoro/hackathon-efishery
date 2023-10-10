@@ -2,6 +2,7 @@ package task
 
 import (
 	"context"
+	"time"
 
 	"github.com/pebruwantoro/hackathon-efishery/internal/app/entity"
 )
@@ -9,6 +10,19 @@ import (
 func (u *usecase) Create(ctx context.Context, req CreateTaskRequest) error {
 	// GET OBJECTIVE BY ID
 
+	var startDate, endDate, dueDate time.Time
+	if req.StartDate != "" {
+		startTime, _ := time.Parse(time.RFC3339, req.StartDate)
+		startDate = startTime
+	}
+	if req.EndDate != "" {
+		endTime, _ := time.Parse(time.RFC3339, req.EndDate)
+		endDate = endTime
+	}
+	if req.DueDate != "" {
+		dueTime, _ := time.Parse(time.RFC3339, req.DueDate)
+		dueDate = dueTime
+	}
 	// MAPPING OBJECT
 	task := entity.Task{
 		ObjectiveID: req.ObjectiveID,
@@ -16,6 +30,10 @@ func (u *usecase) Create(ctx context.Context, req CreateTaskRequest) error {
 		Description: req.Description,
 		Point:       req.Point,
 		Status:      req.Status,
+		ParentID:    req.ParentId,
+		StartDate:   startDate,
+		EndDate:     endDate,
+		DueDate:     dueDate,
 	}
 	task.SetCreated(req.CreatedBy)
 	task.SetUpdated(req.CreatedBy)

@@ -40,12 +40,12 @@ func (r *users) GetAll(ctx context.Context) (entities []entity.User, err error) 
 }
 
 func (r *users) Create(ctx context.Context, entity *entity.User) (err error) {
-	err = r.db.WithContext(ctx).Create(entity).Error
+	err = r.db.WithContext(ctx).Omit("deleted_at", "deleted_by").Create(entity).Error
 	return
 }
 
 func (r *users) Update(ctx context.Context, entity *entity.User) (err error) {
-	err = r.db.WithContext(ctx).Save(entity).Error
+	err = r.db.WithContext(ctx).Omit("deleted_at", "deleted_by").Save(entity).Error
 	return
 }
 
