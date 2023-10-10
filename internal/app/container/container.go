@@ -57,6 +57,7 @@ func Setup() *Container {
 
 	taskUsecase := task.NewUsecase().
 		SetTaskRepository(taskRepo).
+		SetUserLeveRepository(userPointRepo).
 		Validate()
 
 	return &Container{

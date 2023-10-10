@@ -1,11 +1,36 @@
 package task
 
-import "context"
+import (
+	"context"
+	"fmt"
+
+	"github.com/pebruwantoro/hackathon-efishery/internal/app/entity"
+)
 
 func (u *usecase) Update(ctx context.Context, req UpdateTaskRequest) error {
 	task, err := u.taskRepository.GetByID(ctx, uint(req.Id))
 	if err != nil {
 		return err
+	}
+
+	if req.Status == "DONE" {
+		user, err := u.userLevelRepository.GetByUserID(ctx, req.UserID)
+		if err != nil {
+			return err
+		}
+
+		if user.ID != 0 {
+			reqUserLevel := entity.UserLevel{
+				ID:              user.ID,
+				UserID:          user.UserID,
+				HealthPoint:     user.HealthPoint,
+				ExperiencePoint: task.Point,
+			}
+			fmt.Println("reqUserLevel: ", reqUserLevel)
+			u.userLevelRepository.Update(ctx, &reqUserLevel)
+		}
+
+		fmt.Println("user: ", user)
 	}
 
 	// MAPPING TO UPDATE DATA

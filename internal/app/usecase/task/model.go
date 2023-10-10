@@ -52,6 +52,7 @@ type GetTaskResponse struct {
 
 type UpdateTaskRequest struct {
 	Id          int    `json:"id"`
+	UserID      int    `json:"user_id"`
 	ObjectiveID int    `json:"objective_id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`

@@ -16,7 +16,8 @@ type TaskUsecase interface {
 }
 
 type usecase struct {
-	taskRepository repository.Tasks
+	taskRepository      repository.Tasks
+	userLevelRepository repository.UserLevels
 }
 
 func NewUsecase() *usecase {
@@ -28,9 +29,18 @@ func (s *usecase) SetTaskRepository(repo repository.Tasks) *usecase {
 	return s
 }
 
+func (s *usecase) SetUserLeveRepository(repo repository.UserLevels) *usecase {
+	s.userLevelRepository = repo
+	return s
+}
+
 func (s *usecase) Validate() TaskUsecase {
 	if s.taskRepository == nil {
-		panic("userRepository is nil")
+		panic("taskRepository is nil")
+	}
+
+	if s.userLevelRepository == nil {
+		panic("userLevelRepository is nil")
 	}
 
 	return s
